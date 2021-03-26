@@ -1,0 +1,104 @@
+
+Query: Create 3 new dojos
+>>> from dojo_ninjas_app.models import *
+>>> Dojo.objects.create(name ="Priya", city="London", state="CA")
+<Dojo: Dojo object (1)>
+>>> Dojo.objects.create(name ="Vidya", city="Fremont", state="CA")
+<Dojo: Dojo object (2)>
+>>> Dojo.objects.create(name ="Manu", city="San Francisco", state="CA")
+<Dojo: Dojo object (3)>
+
+
+Query: Delete the 3 dojos you just created
+>>> Dojo.objects.get(id=1).delete()
+(1, {'dojo_ninjas_app.Ninja': 0, 'dojo_ninjas_app.Dojo': 1})
+>>> Dojo.objects.get(id=2).delete()
+(1, {'dojo_ninjas_app.Ninja': 0, 'dojo_ninjas_app.Dojo': 1})
+>>> Dojo.objects.get(id=3).delete()
+(1, {'dojo_ninjas_app.Ninja': 0, 'dojo_ninjas_app.Dojo': 1})
+>>> 
+
+Query: Create 3 more dojos
+>>> Dojo.objects.create(name ="Priya", city="London", state="CA")
+<Dojo: Dojo object (4)>
+>>> Dojo.objects.create(name ="Vidya", city="Fremont", state="CA")
+<Dojo: Dojo object (5)>
+>>> Dojo.objects.create(name ="Manu", city="San Francisco", state="CA")
+<Dojo: Dojo object (6)>
+>>> 
+
+Query: Create 3 ninjas that belong to the second dojo
+>>> Ninja.objects.create(first_name="Peter", last_name="Davis", dojo=Dojo.objects.get(id=4))
+<Ninja: Ninja object (1)>
+>>> Ninja.objects.create(first_name="Sari", last_name="Brets", dojo=Dojo.objects.get(id=4))
+<Ninja: Ninja object (2)>
+>>> Ninja.objects.create(first_name="Tracy", last_name="Child", dojo=Dojo.objects.get(id=4))
+<Ninja: Ninja object (3)>
+
+Query: Create 3 ninjas that belong to the third dojo
+<Ninja: Ninja object (3)>
+>>> Ninja.objects.create(first_name="Peter", last_name="Sellers", dojo=Dojo.objects.get(id=5))
+<Ninja: Ninja object (4)>
+>>> Ninja.objects.create(first_name="Dor", last_name="Suiters", dojo=Dojo.objects.get(id=5))
+<Ninja: Ninja object (5)>
+>>> Ninja.objects.create(first_name="Tara", last_name="Session", dojo=Dojo.objects.get(id=5))
+<Ninja: Ninja object (6)>
+>>> 
+
+Query: Retrieve all the ninjas from the first dojo
+>>> Ninja.objects.get(id=1).__dict__
+{'_state': <django.db.models.base.ModelState object at 0x107083310>, 'id': 1, 'first_name': 'Peter', 'last_name': 'Davis', 'dojo_id': 4, 'created_at': datetime.datetime(2021, 2, 24, 17, 29, 55, 320292, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 2, 24, 17, 29, 55, 320356, tzinfo=<UTC>)}
+>>> Ninja.objects.get(id=2).__dict__
+{'_state': <django.db.models.base.ModelState object at 0x1070831f0>, 'id': 2, 'first_name': 'Sari', 'last_name': 'Brets', 'dojo_id': 4, 'created_at': datetime.datetime(2021, 2, 24, 17, 30, 30, 485978, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 2, 24, 17, 30, 30, 486043, tzinfo=<UTC>)}
+>>> Ninja.objects.get(id=3).__dict__
+{'_state': <django.db.models.base.ModelState object at 0x107083100>, 'id': 3, 'first_name': 'Tracy', 'last_name': 'Child', 'dojo_id': 4, 'created_at': datetime.datetime(2021, 2, 24, 17, 30, 55, 24759, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 2, 24, 17, 30, 55, 24794, tzinfo=<UTC>)}
+>>> 
+
+Query: Retrieve all the ninjas from the last dojo
+>>> Ninja.objects.get(id=6).__dict__
+{'_state': <django.db.models.base.ModelState object at 0x107083130>, 'id': 6, 'first_name': 'Tara', 'last_name': 'Session', 'dojo_id': 5, 'created_at': datetime.datetime(2021, 2, 24, 17, 34, 49, 380587, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 2, 24, 17, 34, 49, 380630, tzinfo=<UTC>)}
+>>> Ninja.objects.get(id=5).__dict__
+{'_state': <django.db.models.base.ModelState object at 0x107083520>, 'id': 5, 'first_name': 'Dor', 'last_name': 'Suiters', 'dojo_id': 5, 'created_at': datetime.datetime(2021, 2, 24, 17, 34, 23, 740937, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 2, 24, 17, 34, 23, 740973, tzinfo=<UTC>)}
+>>> Ninja.objects.get(id=4).__dict__
+{'_state': <django.db.models.base.ModelState object at 0x107083550>, 'id': 4, 'first_name': 'Peter', 'last_name': 'Sellers', 'dojo_id': 5, 'created_at': datetime.datetime(2021, 2, 24, 17, 33, 55, 205580, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 2, 24, 17, 33, 55, 205639, tzinfo=<UTC>)}
+>>> 
+
+Query: Retrieve the last ninja's dojo
+>>> Ninja.objects.get(id=6).dojo.__dict__
+{'_state': <django.db.models.base.ModelState object at 0x1070836a0>, 'id': 5, 'name': 'Vidya', 'city': 'Fremont', 'state': 'CA', 'created_at': datetime.datetime(2021, 2, 24, 17, 15, 14, 750706, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 2, 24, 17, 15, 14, 750760, tzinfo=<UTC>)}
+>>> 
+
+Query Add a new text field called "desc" to your Dojo class
+(djangoEnv) MacBook-Pro-3:dojo_ninjas_proj prprakas$ python3 manage.py make migrations
+Unknown command: 'make'
+Type 'manage.py help' for usage.
+(djangoEnv) MacBook-Pro-3:dojo_ninjas_proj prprakas$ python3 manage.py makemigrations
+You are trying to add a non-nullable field 'desc' to dojo without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option: 2
+(djangoEnv) MacBook-Pro-3:dojo_ninjas_proj prprakas$ python3 manage.py makemigrations
+You are trying to add a non-nullable field 'desc' to dojo without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option: 1
+Please enter the default value now, as valid Python
+The datetime and django.utils.timezone modules are available, so you can do e.g. timezone.now
+Type 'exit' to exit this prompt
+>>> "here is a description"
+Migrations for 'dojo_ninjas_app':
+  dojo_ninjas_app/migrations/0002_dojo_desc.py
+    - Add field desc to dojo
+(djangoEnv) MacBook-Pro-3:dojo_ninjas_proj prprakas$ python3 manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, dojo_ninjas_app, sessions
+Running migrations:
+  Applying dojo_ninjas_app.0002_dojo_desc... OK
+(djangoEnv) MacBook-Pro-3:dojo_ninjas_proj prprakas$ 
+
+Query: Create a new dojo
+>>> Dojo.objects.create(name ="New Dojo", city="Plymouth", state ="CA", desc="here is a description")
+<Dojo: Dojo object (7)>
+>>> 

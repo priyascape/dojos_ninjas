@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+        crossorigin="anonymous">
+    <title>Dojo Ninja Templates</title>
+</head>
+
+<body>
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="width:750px;">
+        <div class="card border-dark mb-3" style="width: 50rem;">
+            <div id="form1">
+                <h6> Add a Dojo</h6>
+                <form method="post" action="/submit_dojo" >
+                    {% csrf_token %}
+                    <input type="text" name="name" Placeholder="Name">
+                    <input type="text" name="city" Placeholder="City">
+                    <input type="text" name="state" Placeholder="State">
+                    <input type="submit" name="submit" action="submit_dojo">
+                </form>       
+            </div>
+            <div class="container d-flex flex-column justify-content-center align-items-center" style="width:750px;>
+            <div class="card border-dark mb-3" style="width: 50rem;">
+            <div id="form2">
+                    <h6> Add a Ninja</h6>
+                    <form method="post" action="/submit_ninja" >
+                    {% csrf_token %}
+                    <input type="text" name="first_name" Placeholder="Name">
+                    <input type="text" name="last_name" Placeholder="Name">
+                    <input type="text" name="city" Placeholder="City">
+                    <select name ="dojo" id ="dojo" Placeholder="Dojo">
+                        {% for Dojo in all_the_dojos %}
+                        <option value="{{Dojo.id}}">{{Dojo.city}}</option>
+                        {% endfor %}
+                     
+                    <input type="submit" name="submit" action="submit_ninja">
+                </select>
+                </form>
+            </div>
+        </div>
+            </div>
+        </div>
+    </div>
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="width:750px;">
+        <div class="card border-dark mb-3" style="width: 50rem;">
+            <h6> All the Dojos </h6>
+            <ul>
+                {% for Dojo in all_the_dojos %}
+                <li>{{Dojo.city}}
+                 <ul>
+                     {% for ninjas in Dojo.ninjas.all %}
+                     <li><em> {{ninjas.first_name}} {{ninjas.last_name}}</em> </li>
+                </ul>
+                 </li>
+                {% endfor %}
+            </ul>
+             <a href="/delete"> <button>Delete</button></a>
+
+         </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
